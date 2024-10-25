@@ -9,9 +9,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    env:
+      ANDROID_HOME: /opt/android-sdk
+      PATH: ${{ env.PATH }}:/opt/android-sdk/tools:/opt/android-sdk/platform-tools
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Check Android SDK Path
+      run: |
+        echo "ANDROID_HOME is set to $ANDROID_HOME"
+        ls -al $ANDROID_HOME
 
     - name: Set up Java and Android SDK
       uses: actions/setup-java@v3
