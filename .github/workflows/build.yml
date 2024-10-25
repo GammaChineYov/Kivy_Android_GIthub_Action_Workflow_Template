@@ -1,0 +1,43 @@
+
+name: Build Kivy Android App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install buildozer
+        sudo apt-get update
+        sudo apt-get install -y pkg-config autoconf automake libtool curl zlib1g-dev unzip python3-pip cython3 python3-dev libffi-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev libavutil-dev
+
+    - name: Build Android App
+      run: |
+        buildozer init
+        echo "title = YourAppName" >> buildozer.spec
+        echo "package.name = com.yourcompany.yourapp" >> buildozer.spec
+        echo "package.version = 1.0" >> buildozer.spec
+        buildozer android debug
+        # 假设生成的 APK 在 bin/目录下，这里将其重命名以便区分不同的构建版本
+        mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk
+
+    - name: Upload APK for testing
+      uses: actions/upload-artifact@v2
+      with:
+        name: android-apk
+        path: bin/YourAppName-v1.0-debug.apk
+
