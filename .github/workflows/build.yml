@@ -13,9 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Check software
-      run: |
-        java -version
 
     - name: Install dependencies
       run: |
@@ -30,7 +27,7 @@ jobs:
     - name: Build Android App
       run: |
         pwd
-        yes | buildozer android debug
+        yes | buildozer android debug -q
         mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk
 
     - name: Upload APK for testing

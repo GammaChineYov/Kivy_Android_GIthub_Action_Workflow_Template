@@ -34,7 +34,7 @@ android.ndk = 21.4.7075529
 android.ant = /usr/bin/ant
 
 # 设置日志级别（可选）
-log_level = 2
+log_level = warning
 
 
 
