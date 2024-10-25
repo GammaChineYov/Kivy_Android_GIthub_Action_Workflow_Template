@@ -1,4 +1,3 @@
-
 name: Build Kivy Android App
 
 on:
@@ -36,8 +35,7 @@ jobs:
         mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk
 
     - name: Upload APK for testing
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: android-apk
         path: bin/YourAppName-v1.0-debug.apk
-
