@@ -29,7 +29,7 @@ jobs:
         buildozer init
         echo "title = YourAppName" >> buildozer.spec
         echo "package.name = com.yourcompany.yourapp" >> buildozer.spec
-        echo "package.version = 1.0" >> buildozer.spec
+        echo "version = 1.0" >> buildozer.spec
         buildozer android debug
         # 假设生成的 APK 在 bin/目录下，这里将其重命名以便区分不同的构建版本
         mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk

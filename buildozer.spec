@@ -32,4 +32,6 @@ android.ant = /usr/bin/ant
 # 设置日志级别（可选）
 log_level = 2
 
+source.dir =.
+
 
