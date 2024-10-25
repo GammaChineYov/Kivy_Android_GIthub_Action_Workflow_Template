@@ -9,10 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    env:
-      ANDROID_HOME: /opt/android-sdk
-      PATH: ${{ env.PATH }}:/opt/android-sdk/tools:/opt/android-sdk/platform-tools
 
     steps:
     - uses: actions/checkout@v4
