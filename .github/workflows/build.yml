@@ -13,10 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - name: Set up Java and Android SDK
+      uses: actions/setup-java@v3
       with:
-        python-version: '3.9'
+        java-version: '11'
+        android-sdk: '/opt/android-sdk'
 
     - name: Install dependencies
       run: |
@@ -26,7 +27,7 @@ jobs:
         pip3 install --user --upgrade Cython==0.29.33
         export PATH=$PATH:~/.local/bin/
 
-    - name: Set up Android SDK
+    - name: Set Android SDK environment variables
       run: |
         export ANDROID_HOME=/opt/android-sdk
         export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
