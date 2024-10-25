@@ -13,27 +13,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Check Android SDK Path
+    - name: Locate sdkmanager and accept licenses
       run: |
-        echo "ANDROID_HOME is set to $ANDROID_HOME"
-        ls -al $ANDROID_HOME
-
-        
-    - name: Set Android SDK environment variables
+        SDKMANAGER_PATH=$(find $ANDROID_HOME -type f -name "sdkmanager" | head -n 1)
+        if [ -z "$SDKMANAGER_PATH" ]; then
+          echo "sdkmanager not found!"
+          exit 1
+        else
+          echo "sdkmanager located at $SDKMANAGER_PATH"
+          echo "y" | $SDKMANAGER_PATH --licenses
+        fi
       env:
         ANDROID_HOME: /usr/local/lib/android/sdk
-        PATH: $PATH:/usr/local/lib/android/sdk/tools:/usr/local/lib/android/sdk/platform-tools
-      run: |
-        echo "ANDROID_HOME is set to $ANDROID_HOME"
-        echo "PATH is set to $PATH"
-
-    - name: Accept Android SDK licenses
-      env:
-        ANDROID_HOME: /usr/local/lib/android/sdk
-        PATH: $PATH:/usr/local/lib/android/sdk/tools:/usr/local/lib/android/sdk/platform-tools
-      run: |
-        echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-
 
     - name: Install dependencies
       run: |
