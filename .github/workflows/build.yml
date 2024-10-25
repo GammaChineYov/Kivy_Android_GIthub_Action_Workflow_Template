@@ -13,17 +13,37 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Java
+    - name: Set up Java and Android SDK
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        distribution: 'temurin'
-        java-package: jdk
+        
 
-    - name: Install Android SDK
+    - name: Install dependencies
       run: |
-        # Assuming you have the Android SDK archive at a specific URL
-        wget <android-sdk-url>
-        tar -xf <android-sdk-archive-name> -C /opt/
-        export ANDROID_HOME=/opt/<android-sdk-directory-name>
-        export PATH=$PATH:$ANDROID_HOME/tools:$
+        pip install buildozer
+        sudo apt update
+        sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+        pip3 install --user --upgrade Cython==0.29.33
+        export PATH=$PATH:~/.local/bin/
+
+    - name: Set Android SDK environment variables
+      run: |
+        export ANDROID_HOME=/opt/android-sdk
+        export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+    - name: Accept Android SDK licenses
+      run: |
+        echo "y" | /opt/android-sdk/tools/bin/sdkmanager --licenses
+
+    - name: Build Android App
+      run: |
+        pwd
+        buildozer android debug -y
+        mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk
+
+    - name: Upload APK for testing
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk
+        path: bin/YourAppName-v1.0-debug.apk
