@@ -28,7 +28,7 @@ jobs:
 
     - name: Accept Android SDK licenses
       run: |
-        echo "y" | /content/android-sdk/tools/bin/sdkmanager --licenses
+        ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "build-tools;29.0.0"
 
     - name: Build Android App
       run: |
