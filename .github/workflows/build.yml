@@ -34,8 +34,8 @@ jobs:
       run: |
         pwd
         # buildozer init 如果没有buildozer.spec则需要这行,然后添加参数
-        sdkmanager --update --licenses
-        buildozer android debug
+        # /content/android-sdk/tools/bin/sdkmanager --update --licenses
+        buildozer android debug -y
         # 假设生成的 APK 在 bin/目录下，这里将其重命名以便区分不同的构建版本
         mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk
 
