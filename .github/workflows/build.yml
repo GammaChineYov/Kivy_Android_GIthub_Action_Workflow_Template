@@ -26,9 +26,11 @@ jobs:
 
     - name: Build Android App
       run: |
+        pwd
         echo "title = YourAppName" >> buildozer.spec
         echo "package.name = com.yourcompany.yourapp" >> buildozer.spec
         echo "version = 1.0" >> buildozer.spec
+        echo "source.dir =." >> buildozer.spec
         buildozer init
         buildozer android debug
         # 假设生成的 APK 在 bin/目录下，这里将其重命名以便区分不同的构建版本
