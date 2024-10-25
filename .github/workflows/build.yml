@@ -13,18 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Locate sdkmanager and accept licenses
-      run: |
-        SDKMANAGER_PATH=$(find $ANDROID_HOME -type f -name "sdkmanager" | head -n 1)
-        if [ -z "$SDKMANAGER_PATH" ]; then
-          echo "sdkmanager not found!"
-          exit 1
-        else
-          echo "sdkmanager located at $SDKMANAGER_PATH"
-          echo "y" | $SDKMANAGER_PATH --licenses
-        fi
-      env:
-        ANDROID_HOME: /usr/local/lib/android/sdk
 
     - name: Install dependencies
       run: |
@@ -39,7 +27,7 @@ jobs:
     - name: Build Android App
       run: |
         pwd
-        buildozer android debug -y
+        yes | buildozer android debug
         mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk
 
     - name: Upload APK for testing
