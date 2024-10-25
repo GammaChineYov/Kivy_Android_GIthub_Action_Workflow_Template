@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
@@ -35,7 +35,7 @@ jobs:
         mv bin/YourAppName-debug.apk bin/YourAppName-v1.0-debug.apk
 
     - name: Upload APK for testing
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: android-apk
         path: bin/YourAppName-v1.0-debug.apk
