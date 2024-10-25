@@ -13,6 +13,10 @@ package.version = 0.1
 # 应用图标（可选，如果不需要可以注释掉）
 #icon.filename = %(source.dir)s/data/icon.png
 
+source.dir =.
+
+version = 0.1
+
 [buildozer]
 
 # 指定构建目标为安卓
@@ -32,6 +36,5 @@ android.ant = /usr/bin/ant
 # 设置日志级别（可选）
 log_level = 2
 
-source.dir =.
 
 
